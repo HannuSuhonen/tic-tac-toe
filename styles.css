@@ -1,3 +1,15 @@
 h1{
     color: blue;
 }
+
+div{
+    border: 1px solid black;
+}
+
+.gameboard{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    height: 500px;
+    width: 500px;
+}
