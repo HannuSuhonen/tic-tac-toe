@@ -1,18 +1,32 @@
 const gameboad = (function createGameboard(){
-    let gameBoardTiles = [["x","","x"],["x","","x"],["x","x","x"]]
-
-
-    checkRows(gameBoardTiles);
-
+    let gameBoardTiles = [["1","","1"],["2","","2"],["1","","1"]]
     return{
         gameBoardTiles,
     }
 })();
 
-function checkRows(gameBoardTiles){
-    for (const row in gameBoardTiles) {
-        checkForThreeMatch(row);
+function checkRows(){
+    const { gameBoardTiles } = gameboad;
+    for(let i = 0; i < gameBoardTiles.length; i++){
+        if(checkForThreeMatch(gameBoardTiles[i]) === true){
+            return true;
+        }
     }
+    return false;
+}
+
+function checkColumns(){
+    const { gameBoardTiles } = gameboad;
+    const column = gameBoardTiles.map((arr) => arr[1]);
+    return checkForThreeMatch(column);
+}
+
+function checkDiagonal(){
+    const { gameBoardTiles } = gameboad;
+    const diag1 = gameBoardTiles.map((row, index) => row[index]);
+    const diag2 = gameBoardTiles.map((row, index) => row[gameBoardTiles.length - 1 - index]);
+
+    return checkForThreeMatch(diag1) || checkForThreeMatch(diag2);
 }
 
 function checkForThreeMatch(arr){
@@ -22,14 +36,5 @@ function checkForThreeMatch(arr){
             return false;
         }
     }
-    console.log("x found!")
     return true;
-}
-
-function checkColumns(){
-    let gameBoardTiles = [["1","2","3"],["4","5","6"],["7","8","9"]]
-
-    let x = gameBoardTiles.flat().map(arr => arr[0]);
-
-    console.log(gameBoardTiles.flat());
 }
