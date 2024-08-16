@@ -1,5 +1,7 @@
 const gameboad = (function createGameboard(){
-    let gameBoardTiles = [["1","2","3"],["1","2","6"],["6","6","6"]]
+    let gameBoardTiles =    [["1","2","13"],
+                            ["1","13","6"],
+                            ["13","6","6"]]
     return{
         gameBoardTiles,
     }
@@ -27,8 +29,8 @@ function checkColumns(){
 function checkDiagonal(){
     const { gameBoardTiles } = gameboad;
     const diag1 = gameBoardTiles.map((row, index) => row[index]);
-    const diag2 = gameBoardTiles.map((row, index) => row[gameBoardTiles.length - 1 - index]);
-
+    const diag2 = gameBoardTiles.reverse().map((row, index) => row[index]);
+    console.log(diag2);
     return checkForThreeMatch(diag1) || checkForThreeMatch(diag2);
 }
 
