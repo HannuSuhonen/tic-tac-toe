@@ -1,13 +1,13 @@
 const gameboad = (function createGameboard(doc){
     const gameBoardTiles = [];
-    const gridItems = doc.querySelectorAll(".grid");
-    Array.from(gridItems).forEach((element) => {
-        gameBoardTiles.push(element);
-    })
+    const gridItems = Array.from(doc.querySelectorAll(".grid"), (element) => {
+        return element.textContent;
+    });
+
     while(gridItems.length){
-        gameBoardTiles.push(gridItems.splice(0,3));
+        let x = gameBoardTiles.push(gridItems.splice(0,3));
+        console.log(x);
     } 
-    console.log(gameBoardTiles);
 
     function checkRows() {
         for(let i = 0; i < gameBoardTiles.length; i++){
