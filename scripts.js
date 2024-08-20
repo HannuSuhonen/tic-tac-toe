@@ -1,14 +1,15 @@
-const gameboad = (function createGameboard(doc){
+let firstPlayerTurn = true;
+const gridItems = document.querySelectorAll(".grid");
+
+function cheakGameboardWinState(){
     const gameBoardTiles = [];
-    const gridItems = Array.from(doc.querySelectorAll(".grid"), (element) => {
+    const gridItemsTexts = Array.from(gridItems, (element) => {
         return element.textContent;
     });
 
-    while(gridItems.length){
-        let x = gameBoardTiles.push(gridItems.splice(0,3));
-        console.log(x);
+    while(gridItemsTexts.length){
+        gameBoardTiles.push(gridItemsTexts.splice(0,3));
     } 
-
     function checkRows() {
         for(let i = 0; i < gameBoardTiles.length; i++){
             if(checkForThreeMatch(gameBoardTiles[i]) === true){
@@ -36,11 +37,26 @@ const gameboad = (function createGameboard(doc){
         if (arr.length === 0 || arr[0] == null || arr[0] === "") {
             return false;
         }
+
         return arr.every(element => element === arr[0]);
     }
-
     return{
         checkwin : checkRows() || checkColumns() || checkDiagonal(),
+        gameBoardTiles
     }
-})(document);
+};
 
+gridItems.forEach((element) => {
+    element.addEventListener(("click"),() => {
+        if(element.textContent === "" && firstPlayerTurn){
+            element.textContent = "X";
+            firstPlayerTurn = false;
+        }else if(element.textContent !== "X"){
+            element.textContent = "O";
+            firstPlayerTurn = true;
+        }
+        const gameboad = cheakGameboardWinState();
+        console.log(gameboad.checkwin);
+        console.log(gameboad.gameBoardTiles);
+    })
+})
