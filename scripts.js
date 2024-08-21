@@ -6,14 +6,10 @@ function cheakGameboardWinState(gridItems){
         return element.textContent;
     });
 
-    // function checkDraw(){
-    //     if(gridItemsTexts.every((element) => element !== "")) winner = "draw";
-    // }
-    // checkDraw();
+    for (let i = 0; i < gridItemsTexts.length; i += 3) {
+        gameBoardTiles.push(gridItemsTexts.slice(i, i + 3));
+    }
 
-    while(gridItemsTexts.length){
-        gameBoardTiles.push(gridItemsTexts.splice(0,3));
-    } 
     function checkRows() {
         for(let i = 0; i < gameBoardTiles.length; i++){
             if(checkForThreeMatch(gameBoardTiles[i]) === true){
@@ -47,9 +43,12 @@ function cheakGameboardWinState(gridItems){
         return threeMatchBool;
     }
     const getWinner = () => winner;
+    const checkDraw = () => gridItemsTexts.every((element) => element !== "")
+    
     return{
         checkwin : checkRows() || checkColumns() || checkDiagonal(),
         getWinner,
+        checkDraw
     }
 };
 
@@ -64,16 +63,17 @@ function initializeGame(gridItems){
                 element.textContent = "O";
                 firstPlayerTurn = true;
             }
-    
             const gameboad = cheakGameboardWinState(gridItems);
+
             if(gameboad.checkwin === true){
                 setTimeout(() => {
                     alert(`${gameboad.getWinner()} wins!`)
                     gridItems.forEach((element) => element.textContent = "");
                     firstPlayerTurn = true;
                 },0)
-            }else if(gameboad.checkwin === false && gameboad.getWinner() === ""){
-                console.log("draw test");
+            }else if(gameboad.checkDraw()){
+                alert("Draw!")
+                gridItems.forEach((element) => element.textContent = "");
             }
         });
     });
