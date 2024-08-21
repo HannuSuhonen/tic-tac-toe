@@ -1,8 +1,8 @@
-let firstPlayerTurn = true;
 const gridItems = document.querySelectorAll(".grid");
 
 function cheakGameboardWinState(){
     const gameBoardTiles = [];
+    let winner = "";
     const gridItemsTexts = Array.from(gridItems, (element) => {
         return element.textContent;
     });
@@ -37,15 +37,19 @@ function cheakGameboardWinState(){
         if (arr.length === 0 || arr[0] == null || arr[0] === "") {
             return false;
         }
-
-        return arr.every(element => element === arr[0]);
+        return arr.every((element) => {
+            winner = arr[0];
+            return element === arr[0]
+        });
     }
+    const getWinner = () => winner;
     return{
         checkwin : checkRows() || checkColumns() || checkDiagonal(),
-        gameBoardTiles
+        getWinner,
     }
 };
 
+let firstPlayerTurn = true;
 gridItems.forEach((element) => {
     element.addEventListener(("click"),() => {
         if(element.textContent === "" && firstPlayerTurn){
@@ -55,8 +59,12 @@ gridItems.forEach((element) => {
             element.textContent = "O";
             firstPlayerTurn = true;
         }
+
         const gameboad = cheakGameboardWinState();
-        console.log(gameboad.checkwin);
-        console.log(gameboad.gameBoardTiles);
+        if(gameboad.checkwin === true){
+            alert(`${gameboad.getWinner()} wins!`)
+            gridItems.forEach((element) => element.textContent = "");
+        }
     })
+
 })
