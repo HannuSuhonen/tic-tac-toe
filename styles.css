@@ -4,6 +4,7 @@ h1{
 
 div{
     border: 1px solid black;
+
 }
 
 .gameboard{
@@ -12,4 +13,11 @@ div{
     grid-template-rows: repeat(3,1fr);
     height: 500px;
     width: 500px;
+    font-size: 100px;
+}
+
+.grid{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
