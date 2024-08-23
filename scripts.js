@@ -44,7 +44,7 @@ function cheakGameboardWinState(gridItems){
     }
     const getWinner = () => winner;
     const checkDraw = () => gridItemsTexts.every((element) => element !== "")
-    
+
     return{
         checkwin : checkRows() || checkColumns() || checkDiagonal(),
         getWinner,
@@ -72,8 +72,11 @@ function initializeGame(gridItems){
                     firstPlayerTurn = true;
                 },0)
             }else if(gameboad.checkDraw()){
-                alert("Draw!")
-                gridItems.forEach((element) => element.textContent = "");
+                setTimeout(() => {
+                    alert("Draw!")
+                    gridItems.forEach((element) => element.textContent = "");
+                    firstPlayerTurn = true;
+                },0)
             }
         });
     });
